@@ -1,14 +1,21 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState,useContext, useEffect } from 'react'
 import { Link ,useLocation } from 'react-router-dom'
 import { useGSAP } from "@gsap/react"
 import gsap from 'gsap'
 import FinishRide from '../components/FinishRide'
-import { Socket } from 'socket.io-client'
+import { SocketContext } from '../context/SocketContext'
+
+import LiveTrackingCaptain from "../components/LiveTrackingCaptain"
 
 const CaptainRiding = () => {
     const [finshRidePanel,setFinishRidePanel]=useState(false)
     const finshRidePanelRef=useRef(null)
     const rideData=useLocation().state?.ride
+    const {socket}=useContext(SocketContext)
+   
+
+    
+      
 
     useGSAP(function() {
         if (finshRidePanel) {
@@ -24,15 +31,15 @@ const CaptainRiding = () => {
       
     
     return (
-        <div className='h-screen fixed'>
+        <div className='h-screen overflow-y-hidden overflow-x-hidden'>
             <div className='fixed p-3 top-0 flex items-center justify-between w-screen ' >
                 <img className='w-16 ' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="" />
                 <Link to="/captain-home" className=' h-10 rounded-full w-10 flex items-center justify-center bg-white'>
                     <i className=" text-xl font-medium ri-logout-box-r-line"></i>
                 </Link>
             </div> 
-            <div className='h-4/5'>
-                <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="map" />
+            <div className='h-4/5 w-full'>
+               <LiveTrackingCaptain/>
             </div>
             <div onClick={()=>{setFinishRidePanel(true)}} className='h-1/5 p-6 pt-10 relative flex items-center justify-center bg-slate-400 '>
                 <h5 className='  w-full p-3 text absolute top-[1%] left-[46%] '><i className=" text-2xl ri-arrow-up-wide-fill"> </i></h5>

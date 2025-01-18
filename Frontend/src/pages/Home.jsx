@@ -16,6 +16,10 @@ import { SocketContext } from '../context/SocketContext'
 import {UserDataContext} from '../context/userContext'
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import LiveTracking from '../components/LiveTracking';
+import LiveTrackingSingle from '../components/LiveTrackingSingle';
+import useMapStore from '../store/useMapStore.js'
+
 const Home = () => {
   const [pickupLocation, setPickupLocation] = useState('')
   const [activeField, setActiveField] = useState(null)
@@ -34,6 +38,10 @@ const Home = () => {
   const [ride, setRide] = useState(null)
   const [from_here_pickup,setFrom_here_pickup]=useState(false)
   const [from_here_destination,setFrom_here_destination]=useState(false)
+  const [coordinatesFetched,setCoordinatesFetched]=useState(false);
+
+  const {location,destination,setLocation,setDestination}=useMapStore()
+ 
     
   //////////
   const panelRef = useRef(null)
@@ -48,21 +56,82 @@ const Home = () => {
   const {user}=useContext(UserDataContext)
   const navigate=useNavigate()
   useEffect(()=>{
-    console.log(user)
+    // console.log(user)
     socket.emit('join',{
       userId:user._id,
       userType:"user"
     })
+    return ()=>{
+      socket.off("join")
+    }
   },[user])
-  socket.on("ride-confirmed",(ride)=>{
-    console.log("here")
-    console.log(ride)
-   
-    setRide(ride)
-    setVehicleFound(false)
-    setWaitingForDriver(true)
-    
-  })
+  useEffect(() => { 
+    /// without use effect and removing socket listener this will run multiple times
+    socket.on("ride-confirmed", async (ride) => {
+      console.log("here");
+      console.log(ride);
+  
+      if (coordinatesFetched) return; /// prune it 
+  
+      setRide(ride);
+      setVehicleFound(false);
+      setWaitingForDriver(true);
+  
+      const { pickup, destination: rideDestination } = ride;
+  
+      try {
+        const pickupCoordinates = await axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-coordinates`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          params: {
+            address: pickup,
+          },
+        });
+  
+        const destinationCoordinates = await axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-coordinates`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          params: {
+            address: rideDestination,
+          },
+        });
+  
+        setCoordinatesFetched(true); 
+        // console.log(pickupCoordinates.data);
+        socket.emit("destination-coordinates",
+          {
+            pickup:{
+              lat: pickupCoordinates.data.latitude,
+              lng: pickupCoordinates.data.longitude,
+            },
+            destination:{
+              lat: destinationCoordinates.data.latitude,  
+              lng: destinationCoordinates.data.longitude,
+            }
+          }
+        );
+        console.log("socket data sendt")
+        setLocation({
+          lat: pickupCoordinates.data.latitude,
+          lng: pickupCoordinates.data.longitude,
+        });
+  
+        setDestination({
+          lat: destinationCoordinates.data.latitude,
+          lng: destinationCoordinates.data.longitude,
+        });
+      } catch (err) {
+        console.log("error");
+        console.log(err);
+      }
+    })
+ 
+    return () => {
+      socket.off("ride-confirmed"); 
+    };
+  }, [coordinatesFetched]); 
   socket.on("ride-started",(ride)=>{
     setWaitingForDriver(false)
     navigate("/riding",{state:{ride:ride}})
@@ -254,11 +323,11 @@ const Home = () => {
                         message2="No route Found"
                      />
                 </div>
-      <img className='w-16 absolute left-5 top-5' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="uber-logo"></img>
-      <div className='h-screen w-screen'>
-        <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="map" />
-      </div>
-      <div className=' flex flex-col justify-end h-screen absolute top-0  w-full '>
+      <img className='w-16 absolute left-5 top-5 ' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="uber-logo"></img>
+      <div className={`h-[72%] w-full ${panelOpen? "":"z-10"}  relative`}>
+            <LiveTrackingSingle/>
+          </div>
+      <div className=' flex flex-col  justify-end h-screen absolute top-0 w-full '>
         <div className='h-[30%] bg-white relative p-5'>
           <h5 ref={panelCloseRef} onClick={() => setPanelOpen(false)} className=' opacity-0 absolute top-1 right-6 text-2xl'><i className="ri-arrow-down-wide-line"></i></h5>
           <h4 className='text-2xl font-semibold'>Find a trip</h4>

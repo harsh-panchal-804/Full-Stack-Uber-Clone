@@ -2,14 +2,22 @@ const axios = require('axios');
 const captainModel = require("../db/Models/captain.model");
 module.exports.getAddressCoordinate = async ( address ) => {
     if (!address) {
+        console.log("address is required")
         throw new Error("Address is required");
     }
-
     const apiKey = process.env.MAPS_API_KEY;
-    const url = `https://maps.gomaps.pro/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
+    let url = `https://maps.gomaps.pro/maps/api/geocode/json?key=${apiKey}&address=${encodeURIComponent(address)}`;
+    if(typeof address!=='string'){
+       
+        const faddress=address.address
+        url = `https://maps.gomaps.pro/maps/api/geocode/json?key=${apiKey}&address=${encodeURIComponent(faddress)}`;
+    }
+
+   
 
     try {
         const response = await axios.get(url);
+        // console.log(response)
         const data = response.data;
 
         if (data.status !== 'OK') {
@@ -17,6 +25,8 @@ module.exports.getAddressCoordinate = async ( address ) => {
         }
 
         const location = data.results[0].geometry.location;
+        console.log("location in map service")
+      
         return {
             latitude: location.lat,
             longitude: location.lng
@@ -28,6 +38,7 @@ module.exports.getAddressCoordinate = async ( address ) => {
 };
 module.exports.getDistanceTime =async (origins,destinations)=>{
     if(!origins || !destinations){
+        
         throw new Error("Origin/Destination cant be null")
     }
     const apiKey = process.env.MAPS_API_KEY
@@ -42,11 +53,14 @@ module.exports.getDistanceTime =async (origins,destinations)=>{
             return response.data.rows[0].elements[0];
         }
         else{
+            
             throw new Error("Failed to fetch distance and time");
         }
     }
     catch(err){
+      
         console.log(err.message)
+       
         throw new Error("Error fetching distance: "+err.message)
     }
     

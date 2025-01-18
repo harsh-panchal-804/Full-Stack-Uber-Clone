@@ -68,9 +68,9 @@ const Otp = ({ length, ride, setConfirmRidePopUpPanel, setRidePopUpPanel }) => {
 
     useEffect(() => {
         if (otp.length === length) {
-            submitHandler(); // Call submitHandler when otp is fully updated
+            submitHandler(); 
         }
-    }, [otp]); // Dependency array ensures this runs whenever otp changes
+    }, [otp]); 
 
     return (
         <div className='flex flex-col items-center justify-center'>

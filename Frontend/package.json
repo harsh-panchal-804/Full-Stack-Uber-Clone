@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "npx patch-package @react-google-maps/api"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
@@ -16,12 +17,14 @@
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",
     "gsap": "^3.12.5",
+    "patch-package": "^8.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.5.1",
     "react-router-dom": "^7.1.1",
     "remixicon": "^4.6.0",
-    "socket.io-client": "^4.8.1"
+    "socket.io-client": "^4.8.1",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

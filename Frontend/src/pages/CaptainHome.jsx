@@ -9,6 +9,9 @@ import { useEffect,useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import {CaptainDataContext} from '../context/CaptainContext'
 import axios from 'axios'
+import LiveTracking from '../components/LiveTracking'
+import LiveTrackingSingle from '../components/LiveTrackingSingle'
+import useMapStore from '../store/useMapStore'
 function CaptainHome() {
   const [ridePopUpPanel, setRidePopUpPanel] = useState(false)
   const [confirmRidePopUpPanel, setConfirmRidePopUpPanel] = useState(false)
@@ -16,8 +19,33 @@ function CaptainHome() {
   const ridePopUpPanelRef = useRef(null)
   const confirmRidePopUpPanelRef = useRef(null)
   const { socket } = useContext(SocketContext);
+  const {setDestination,setLocation}=useMapStore()
  
   const {captain}=useContext(CaptainDataContext)
+
+
+
+  
+   useEffect(()=>{ 
+    console.log("here in socket")
+    console.log(socket.connected)
+    socket.on("destination-coordinates",(data)=>{
+      setDestination({
+        lat:data.destination.lat,
+        lng:data.destination.lng
+      })
+      setLocation({
+        lat:data.pickup.lat,
+        lng:data.pickup.lng
+      })
+     
+      // console.log(data)
+    })
+    return ()=>{
+      socket.off("destination-coordinates")
+    }
+  },[socket])
+    
   useEffect(()=>{
     console.log(captain)
     socket.emit('join',{
@@ -27,12 +55,12 @@ function CaptainHome() {
     const updateLocation=()=>{
       if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(async (position)=>{
-          console.log({
-            userId:captain._id,
-            location:{
-              ltd:position.coords.latitude,
-              lng:position.coords.longitude
-            }})
+          // console.log({
+          //   userId:captain._id,
+          //   location:{
+          //     ltd:position.coords.latitude,
+          //     lng:position.coords.longitude
+          //   }})
           socket.emit("update-location-captain",{
             userId:captain._id,
             location:{
@@ -106,7 +134,7 @@ function CaptainHome() {
         </Link>
       </div>
       <div className='h-3/5'>
-        <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="map" />
+        <LiveTrackingSingle/>
       </div>
       <div className='h-2/5 p-4 '>
         <CaptainDetails />

@@ -7,6 +7,8 @@ async function getFare(pickup, destination) {
         throw new Error("Missing pickup or destination");
     }
     const distanceTime = await mapService.getDistanceTime(pickup, destination);
+    console.log("distanceTime")
+    console.log(distanceTime)
     
     const baseFare = {
         car: 50,

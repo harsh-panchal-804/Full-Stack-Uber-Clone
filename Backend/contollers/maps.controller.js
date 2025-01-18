@@ -8,6 +8,7 @@ module.exports.getCoordinates=async (req,res,next)=>{
         res.status(200).json(coordinates)
     }
     catch(err){
+        console.log(err)
         res.status(500).json({message:"Server error in map controller"})
         
     }

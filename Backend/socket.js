@@ -44,6 +44,9 @@ const initializeSocket = (server) => {
             }
         })
     });
+    socket.on("destination-coordinates",(data)=>{
+      io.emit("destination-coordinates",data)
+    })
     socket.on("disconnect", () => {
       console.log(`Client disconnected: ${socket.id}`);
     });
