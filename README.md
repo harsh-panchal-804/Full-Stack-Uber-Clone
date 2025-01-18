@@ -175,6 +175,6 @@ Backend/
     ├── GET /get-distance-time
     └── GET /get-suggestions
 ```
-More information about API routes can be found in **[README.md](./BackEnd/README.md)** file in the BackEnd folder.
+More information about API routes can be found in **[README.md](./Backend/README.md)** file in the BackEnd folder.
 
 
