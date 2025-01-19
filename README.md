@@ -6,8 +6,8 @@ The app integrates several technologies like **[Socket.io](https://socket.io/)**
 
 ---
 ## Demo
-
-![Demo GIF](resources/chatty-video.gif)
+Watch the demo ->
+![Demo GIF](demo_video/uber2f.gif)
 
 ## Features
 
