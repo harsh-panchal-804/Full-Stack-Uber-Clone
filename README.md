@@ -42,6 +42,7 @@ The app integrates several technologies like **[Socket.io](https://socket.io/)**
 - **React Router DOM**: For navigation and routing.
 - **Socket.IO Client**: For real-time communication with the backend.
 - **@react-google-maps/api**: For integrating Google Maps functionalities.
+- **Navigator.geolocation API** :For getting live location of users.
 - **Axios**: For making API requests.
 - **GSAP**: For creating smooth animations.
 - **Flowbite** & **Flowbite React**: For UI components.
@@ -175,6 +176,6 @@ Backend/
     ├── GET /get-distance-time
     └── GET /get-suggestions
 ```
-More information about API routes can be found in **[README.md](./BackEnd/README.md)** file in the BackEnd folder.
+More information about API routes can be found in **[README.md](./Backend/README.md)** file in the BackEnd folder.
 
 
