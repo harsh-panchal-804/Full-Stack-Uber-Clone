@@ -97,8 +97,8 @@ Watch the demo ->
    ```
    You can get a **Free Google Maps API** from [**Go Maps Pro**](https://app.gomaps.pro/auth/login).
    Firstly,you have to create a free account on the website.
-   Then you have to navigate to the API Section and create a free API .
-   Copy the API Key and paste into .env files of both the Frontend and Backend.
+   Then you have to navigate to the **API** Section and create a free API Key.
+   Copy the API Key and paste into **.env** files of **both** the **Frontend** and **Backend**.
    This API Key only provides **500 credit points** and if you exhaust them you can create a new account on the website and start again. 
     
 5. **Run the Application**
