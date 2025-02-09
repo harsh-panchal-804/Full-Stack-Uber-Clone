@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { UserDataContext } from '../context/userContext'
+import { UserDataContext } from "../context/UserContext"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import AlertComp from '../components/AlertComp'

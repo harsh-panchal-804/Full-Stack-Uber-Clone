@@ -13,7 +13,7 @@ import useDebouncedFunction from '../hooks/useDebouncedFunction'
 import {Label, TextInput} from 'flowbite-react'
 import AlertComp from '../components/AlertComp'
 import { SocketContext } from '../context/SocketContext'
-import {UserDataContext} from '../context/userContext'
+import {UserDataContext} from "../context/UserContext.jsx"
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import LiveTracking from '../components/LiveTracking';
