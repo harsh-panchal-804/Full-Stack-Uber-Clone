@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "postinstall": "npx patch-package @react-google-maps/api"
+    "postinstall": "if [ \"$VERCEL\" != \"1\" ]; then npx patch-package; fi"
+
 
   },
   "dependencies": {
