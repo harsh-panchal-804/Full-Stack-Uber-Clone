@@ -17,6 +17,7 @@
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",
     "gsap": "^3.12.5",
+    "ngrok": "^5.0.0-beta.2",
     "patch-package": "^8.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
