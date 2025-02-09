@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "postinstall": "npx patch-package @react-google-maps/api"
+    "postinstall": "npx patch-package @react-google-maps/api || true"
+
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
