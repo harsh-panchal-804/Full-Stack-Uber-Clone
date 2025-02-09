@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "postinstall": "if [ \"$VERCEL\" != \"1\" ]; then npx patch-package; fi"
+    "postinstall": "npx patch-package || exit 0"
+
 
 
   },
