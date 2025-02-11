@@ -5,6 +5,12 @@ This repository contains a full-stack Uber clone application developed using the
 The app integrates several technologies like **[Socket.io](https://socket.io/)**, **[Google Maps API](https://developers.google.com/maps/documentation)**, and state management using both **[Context API](https://react.dev/learn/passing-data-deeply-with-context)** and **[Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)**.
 
 ---
+
+## Deployment
+
+The project is live and accessible at the following link:
+
+🔗 [Deployed Version](https://full-stack-uber-clone-jxxk.vercel.app/)
 ## Demo
 Watch the demo ->
 ![Demo GIF](demo_video/uber2f.gif)
