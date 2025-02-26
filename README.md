@@ -10,7 +10,7 @@ The app integrates several technologies like **[Socket.io](https://socket.io/)**
 
 The project is live and accessible at the following link:
 
-🔗 [Deployed Version](https://full-stack-uber-clone-jxxk.vercel.app/)
+🔗 [Deployed Version](https://full-stack-uber-clone-axaf-harsh-panchals-projects-245a010d.vercel.app/)
 ## Demo
 Watch the demo ->
 ![Demo GIF](demo_video/uber2f.gif)
