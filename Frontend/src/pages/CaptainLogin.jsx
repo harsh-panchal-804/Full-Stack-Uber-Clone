@@ -93,7 +93,7 @@ const CaptainLogin = () => {
                             id="email" 
                             type="email" 
                             rightIcon={HiMail} 
-                            placeholder="name@flowbite.com" 
+                            placeholder="captainharsh@gmail.com" 
                             required 
                         />
                     </div>
@@ -110,7 +110,7 @@ const CaptainLogin = () => {
                             id="password" 
                             type="password" 
                             rightIcon={HiKey} 
-                            placeholder="Password" 
+                            placeholder="123456" 
                             required
                             color={password.length < 6 && password !== '' ? "failure" : "default"}
                             helperText={password.length < 6 && password !== '' ? 

@@ -97,7 +97,7 @@ const UserLogin = () => {
                             id="email" 
                             type="email" 
                             rightIcon={HiMail} 
-                            placeholder="name@flowbite.com" 
+                            placeholder="passengerharsh@gmail.com"
                             required 
                         />
                     </div>
@@ -114,7 +114,7 @@ const UserLogin = () => {
                             id="password" 
                             type="password" 
                             rightIcon={HiKey} 
-                            placeholder="Password" 
+                            placeholder="123456" 
                             required
                             color={password.length < 6 && password !== '' ? "failure" : "default"}
                             helperText={password.length < 6 && password !== '' ? 
