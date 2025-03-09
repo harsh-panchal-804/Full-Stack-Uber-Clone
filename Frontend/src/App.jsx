@@ -32,7 +32,7 @@ const App = () => {
       <Route path="/riding" element={<Riding/>} />
       <Route path="/*" element={<PageNotFound/>} />
       <Route path="/captain-end" element={<CaptainEnd/>} />
-      <Route path="user-end" element={<UserEnd />} />
+      <Route path="/user-end" element={<UserEnd />} />
       <Route path="/captain-riding"  element={<CaptainRiding/>}/>
       <Route path='/home' element ={
           <UserProtectWrapper>
